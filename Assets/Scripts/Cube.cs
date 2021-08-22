@@ -17,6 +17,8 @@ public class Cube : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y,
             transform.position.z);
 
+        gameObject.isStatic = true;
+
         myRenderer = GetComponent<MeshRenderer>();
         
     }
@@ -36,6 +38,7 @@ public class Cube : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
+            gameObject.isStatic = false;
             myBody.useGravity = true;
         }
     }
