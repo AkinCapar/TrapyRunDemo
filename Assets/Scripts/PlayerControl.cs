@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour
 
     private DynamicJoystick joystick;
 
+    [SerializeField] float verticalAllowence = 1f;
 
 
 
@@ -21,10 +22,11 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //transform.Translate(Vector3.forward * Time.deltaTime * moveForce);
         transform.position += transform.forward * moveForce * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(myBody.velocity);
 
-        if (joystick.Vertical < 0)
+        if (joystick.Vertical < verticalAllowence)
         {
             myBody.velocity = new Vector3(joystick.Horizontal, myBody.velocity.y,
                 myBody.velocity.z);
@@ -36,4 +38,5 @@ public class PlayerControl : MonoBehaviour
             joystick.Vertical);
         }
     }
+
 }

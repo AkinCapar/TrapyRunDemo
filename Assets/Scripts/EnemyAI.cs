@@ -8,6 +8,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] Transform target;
     NavMeshAgent navMeshAgent;
 
+    int i = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,20 +20,29 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         navMeshAgent.SetDestination(target.position);
+        
+        if (i == 0)
+        {
+            Invoke("NavMeshDisable", 0.125f);
+        }
+
 
     }
 
-    private void LateUpdate()
+    public void NavMeshDisable()
     {
-        //navMeshAgent.enabled = false;
+        navMeshAgent.enabled = false;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        i = i - 1;
+        //Debug.Log(i);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Cube")
-        {
-            navMeshAgent.enabled = true;
-            Debug.Log("triggerlaniyor");
-        }
+        i = i + 1;
+        //Debug.Log(i);
     }
 }
