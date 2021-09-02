@@ -11,8 +11,6 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField] float verticalAllowence = 1f;
 
-
-
     private void Awake()
     {
         myBody = GetComponent<Rigidbody>();
@@ -26,7 +24,7 @@ public class PlayerControl : MonoBehaviour
         transform.position += transform.forward * moveForce * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(myBody.velocity);
 
-        if (joystick.Vertical < verticalAllowence)
+        if (joystick.Vertical <= verticalAllowence)
         {
             myBody.velocity = new Vector3(joystick.Horizontal, myBody.velocity.y,
                 myBody.velocity.z);
@@ -37,6 +35,8 @@ public class PlayerControl : MonoBehaviour
             myBody.velocity = new Vector3(joystick.Horizontal, myBody.velocity.y,
             joystick.Vertical);
         }
+
     }
 
+     
 }

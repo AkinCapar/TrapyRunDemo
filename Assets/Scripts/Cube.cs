@@ -38,8 +38,14 @@ public class Cube : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            gameObject.isStatic = false;
-            myBody.useGravity = true;
+            Invoke("CubeFall", 0.25f);
         }
     }
+
+    void CubeFall()
+    {
+        gameObject.isStatic = false;
+        myBody.useGravity = true;
+    }
+
 }
