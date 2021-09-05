@@ -40,6 +40,11 @@ public class Cube : MonoBehaviour
         {
             Invoke("CubeFall", 0.25f);
         }
+
+        if (other.gameObject.name == "InActivatorCollider")
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void CubeFall()

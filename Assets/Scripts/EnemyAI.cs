@@ -44,5 +44,21 @@ public class EnemyAI : MonoBehaviour
     {
         i = i + 1;
         //Debug.Log(i);
+
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.tag == "Player")
+        {
+            FindObjectOfType<Level>().ActivateLoseCanvas();
+        }
+
+        if (collision.gameObject.name == "InActivatorCollider")
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
 }

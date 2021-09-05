@@ -11,7 +11,7 @@ public class Level : MonoBehaviour
     [SerializeField] GameObject winCanvas;
     [SerializeField] GameObject gameCanvas;
 
-    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    int currentSceneIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +21,8 @@ public class Level : MonoBehaviour
         loseCanvas.SetActive(false);
         winCanvas.SetActive(false);
         gameCanvas.SetActive(false);
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log(currentSceneIndex);
     }
 
     public void ActivateLoseCanvas()

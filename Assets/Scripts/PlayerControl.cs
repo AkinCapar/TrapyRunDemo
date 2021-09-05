@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
 
     private DynamicJoystick joystick;
 
-    [SerializeField] float verticalAllowence = 1f;
+    private float verticalAllowence = 0f;
 
     private void Awake()
     {
@@ -38,5 +38,18 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-     
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "RotatingStick")
+        {
+          //  myBody.constraints = RigidbodyConstraints.None ;
+        }
+
+        if (collision.gameObject.name == "Finish Zone")
+        {
+            FindObjectOfType<Level>().ActivateWinCanvas();
+        }
+    }
+
+
 }
