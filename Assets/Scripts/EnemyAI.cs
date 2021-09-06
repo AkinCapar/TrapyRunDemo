@@ -20,36 +20,40 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         navMeshAgent.SetDestination(target.position);
-        
-        if (i == 0)
-        {
-            Invoke("NavMeshDisable", 0.125f);
-        }
-
-
     }
 
     public void NavMeshDisable()
     {
+        navMeshAgent.ResetPath();
         navMeshAgent.enabled = false;
     }
 
     private void OnTriggerExit(Collider other)
     {
         i = i - 1;
-        //Debug.Log(i);
+        if (i == 0)
+        {
+            //Invoke("NavMeshDisable", 0.125f);
+            StartCoroutine(DelayNavMeshDisable());
+        }
+    }
+
+    private IEnumerator DelayNavMeshDisable()
+    {
+        yield return new WaitForSeconds(0.125f);
+        NavMeshDisable();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         i = i + 1;
+#if UNITY_EDITOR
         //Debug.Log(i);
-
+#endif
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.tag == "Player")
         {
             FindObjectOfType<Level>().ActivateLoseCanvas();

@@ -21,21 +21,25 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         //transform.Translate(Vector3.forward * Time.deltaTime * moveForce);
-        transform.position += transform.forward * moveForce * Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(myBody.velocity);
+        transform.position += Vector3.forward * (moveForce * Time.deltaTime);
 
-        if (joystick.Vertical <= verticalAllowence)
+        if (Input.GetMouseButton(0))
         {
-            myBody.velocity = new Vector3(joystick.Horizontal, myBody.velocity.y,
+            myBody.velocity = new Vector3(joystick.Horizontal * 4f, myBody.velocity.y,
                 myBody.velocity.z);
-        }
 
+            /*transform.eulerAngles += Vector3.up * (joystick.Horizontal * 10f);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, Mathf.Clamp(transform.eulerAngles.y, -90f, 90f),
+                transform.eulerAngles.z);*/
+        
+            transform.LookAt(transform.position + Vector3.right * (joystick.Horizontal) + Vector3.forward * 0.5f);
+        }
         else
         {
-            myBody.velocity = new Vector3(joystick.Horizontal, myBody.velocity.y,
-            joystick.Vertical);
+            var currentAngle = transform.eulerAngles;
+            var angle = currentAngle.y > 180 ? (currentAngle - Vector3.up * 360f) : currentAngle;
+            transform.eulerAngles = Vector3.Slerp(angle, Vector3.zero, Time.deltaTime * 4f);
         }
-
     }
 
     private void OnCollisionEnter(Collision collision)

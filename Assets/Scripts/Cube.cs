@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,24 +18,11 @@ public class Cube : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y,
             transform.position.z);
 
-        gameObject.isStatic = true;
-
         myRenderer = GetComponent<MeshRenderer>();
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (myBody.useGravity == true)
-        {
-
-            myRenderer.material.color = Color.Lerp(myRenderer.material.color,
-                redColor, colorTime);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.name == "Player")
         {
@@ -49,8 +37,9 @@ public class Cube : MonoBehaviour
 
     void CubeFall()
     {
-        gameObject.isStatic = false;
-        myBody.useGravity = true;
+        myBody.isKinematic = false;
+        
+        myRenderer.material.color = Color.Lerp(myRenderer.material.color,
+            redColor, colorTime);
     }
-
 }
