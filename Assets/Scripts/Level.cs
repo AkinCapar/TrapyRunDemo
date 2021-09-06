@@ -22,7 +22,7 @@ public class Level : MonoBehaviour
         winCanvas.SetActive(false);
         gameCanvas.SetActive(false);
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        Debug.Log(currentSceneIndex);
+        //Debug.Log(currentSceneIndex);
     }
 
     public void ActivateLoseCanvas()
@@ -52,7 +52,15 @@ public class Level : MonoBehaviour
 
     public void LoadNextScene()
     {
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        if (currentSceneIndex == 2)
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        else
+        {
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
     }
 
 }
